@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+/* navbar css starts here */
+* {
+  margin: 0;
+  padding: 0;
+}
+.nav-pvt {
+  padding-left: 20px;
+  padding-right: 50px !important;
+  font-weight: 500 !important;
+}
+
+.brand {
+  font-size: 30px !important;
+  color: #007eff !important;
+  padding-right: 20px !important;
+}
+
+.button-left {
+  margin-top: 5px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  margin-right: 20px !important;
+  border-radius: 20px !important;
+  border-color: #007eff !important;
+  color: #007eff !important;
+  font-weight: 500 !important;
+}
+
+.button-right {
+  margin-top: 5px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  margin-right: 20px !important;
+  border-radius: 20px !important;
+  background-color: rgb(255, 119, 0) !important;
+  font-weight: 500 !important;
+  color: rgb(252, 252, 252) !important;
+}
+
+.button-left:hover {
+  background-color: rgb(217, 228, 239) !important;
+}
+
+.button-right:hover {
+  background-color: rgb(242, 115, 5) !important;
+}
+
+/* navbar css ends here */
