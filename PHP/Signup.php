@@ -36,31 +36,139 @@ session_start();
     <div class="container">
         <div class="title">Signup For Additional Benefits!</div>
         <div class="content">
-            <form action="#" method="POST">
+            <form action="#" method="POST" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">Full Name</span>
-                        <input type="text" name="user_name" placeholder="Enter your name" required>
+                        <span class="details">First Name</span>
+                        <input type="text" name="first_name" placeholder="Enter your First name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Last Name</span>
+                        <input type="text" name="last_name" placeholder="Enter your Last name" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Email</span>
                         <input type="text" name="Email_id" placeholder="Enter your email" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Password</span>
-                        <input type="password" name="Password" placeholder="Enter your password" required>
+                        <span class="details">Date of Birth</span>
+                        <input type="Date" name="dob" placeholder="Enter your Date of Birth" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Password (Use Strong Password)</span>
+                        <input type="password" name="Password" placeholder="Enter your password" required id="password" oninput="checkPasswordStrength()">
+                        <p id="Password_Strength" style="color: red;"></p>
                     </div>
                     <div class="input-box">
                         <span class="details">Confirm Password</span>
-                        <input type="password" name="Confirm_Password" placeholder="Enter your location" required>
+                        <input type="password" name="Confirm_Password" placeholder="Enter your Confirm Password" required id="confirm_password" oninput="checkConfirmPasswordStrength()">
+                        <p id="Confirm_Password_Strength" style="color: red;"></p>
                     </div>
+                    <!-- Checking for password validation starts here  -->
+                    <script>
+                        function checkPasswordStrength() {
+                            var password = document.getElementById("password").value;
+                            var P_strength = document.getElementById("Password_Strength");
+
+                            // Reset the strength indicator
+                            P_strength.innerText = "";
+
+                            // Check if the password is long enough
+                            if (password.length < 8) {
+                                P_strength.innerText = "Password is too short (must be at least 8 characters).";
+                                return;
+                            }
+
+                            // Check if the password contains at least one uppercase letter
+                            if (!/[A-Z]/.test(password)) {
+                                P_strength.innerText = "Password should contain at least one uppercase letter.";
+                                return;
+                            }
+
+                            // Check if the password contains at least one lowercase letter
+                            if (!/[a-z]/.test(password)) {
+                                P_strength.innerText = "Password should contain at least one lowercase letter.";
+                                return;
+                            }
+
+                            // Check if the password contains at least one digit
+                            if (!/\d/.test(password)) {
+                                P_strength.innerText = "Password should contain at least one digit.";
+                                return;
+                            }
+
+                            // Password is strong
+                            P_strength.innerText = "Password strength: Strong";
+                            P_strength.style.color = "green";
+                        }
+
+                        function checkConfirmPasswordStrength() {
+                            var confirm_password = document.getElementById("confirm_password").value;
+                            var CP_strength = document.getElementById("Confirm_Password_Strength");
+
+                            // Reset the strength indicator
+                            CP_strength.innerText = "";
+
+                            // Check if the password is long enough
+                            if (confirm_password.length < 8) {
+                                CP_strength.innerText = "Password is too short (must be at least 8 characters).";
+                                return;
+                            }
+
+                            // Check if the password contains at least one uppercase letter
+                            if (!/[A-Z]/.test(confirm_password)) {
+                                CP_strength.innerText = "Password should contain at least one uppercase letter.";
+                                return;
+                            }
+
+                            // Check if the password contains at least one lowercase letter
+                            if (!/[a-z]/.test(confirm_password)) {
+                                CP_strength.innerText = "Password should contain at least one lowercase letter.";
+                                return;
+                            }
+
+                            // Check if the password contains at least one digit
+                            if (!/\d/.test(confirm_password)) {
+                                CP_strength.innerText = "Password should contain at least one digit.";
+                                return;
+                            }
+
+                            // Password is strong
+                            CP_strength.innerText = "Password strength: Strong";
+                            CP_strength.style.color = "green";
+                        }
+                    </script>
+                    <!-- Checking for password validation ends here -->
                     <div class="input-box">
                         <span class="details">Mobile no.</span>
-                        <input type="text" name="mobile_number" placeholder="Enter your mobile number" required>
+                        <input type="text" name="mobile_number" placeholder="Enter your mobile number" required id="mobile" oninput="checkMobile()">
+                        <p id="error" style="color: red;"></p>
+                    </div>
+                    <!-- Checking of mobile number starts here -->
+                    <script>
+                        function checkMobile() {
+                            var mobileNumber = document.getElementById("mobile").value;
+                            var digitsOnly = /^\d+$/;
+
+                            if (mobileNumber.length !== 10 || !digitsOnly.test(mobileNumber)) {
+                                document.getElementById("error").innerText = "Please enter a valid 10-digit mobile number.";
+                            } else {
+                                document.getElementById("error").innerText = "";
+                            }
+                        }
+                    </script>
+                    <!-- Checking of mobile number ends here -->
+                    <div class="input-box">
+                        <span class="details">City</span>
+                        <input type="text" placeholder="Enter your City" name="city" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Location</span>
-                        <input type="text" placeholder="Enter your Location" name="Location" required>
+                        <span class="details">State</span>
+                        <input type="text" placeholder="Enter your State" name="state" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Upload Profile Image (Passport size if possible)</span>
+                        <input type="file" placeholder="Enter your State" name="profile_image" required>
                     </div>
                 </div>
 
@@ -76,7 +184,7 @@ session_start();
     <!-- php code starts here-->
     <?php include 'Database_connection.php';
 
-    if (isset($_SESSION['user_name'])) {
+    if (isset($_SESSION['email'])) {
     ?>
         <script>
             location.replace("Home.php");
@@ -84,18 +192,21 @@ session_start();
         <?php
     } else {
         if (isset($_POST['Submit'])) {
-            $user_name = $_POST['user_name'];
+            $first_name = $_POST['first_name'];
+            $last_name = $_POST['last_name'];
             $Email_id = $_POST['Email_id'];
+            $dob = $_POST['dob'];
             $Password = $_POST['Password'];
             $Confirm_Password = $_POST['Confirm_Password'];
             $mobile_number = $_POST['mobile_number'];
-            $Location = $_POST['Location'];
+            $city = $_POST['city'];
+            $state = $_POST['state'];
+            $profile_image = $_FILES['profile_image'];
 
-
-            if (mysqli_num_rows(mysqli_query($con, "select * from signup where user_name='$user_name'")) > 0) {
+            if (mysqli_num_rows(mysqli_query($con, "select * from signup where Email_id='$Email_id'")) > 0) {
         ?>
                 <script>
-                    alert("Username already exist");
+                    alert("Email already exist");
                 </script>
                 <?php
             } else {
@@ -103,34 +214,53 @@ session_start();
 
                     $Password = password_hash($Password, PASSWORD_DEFAULT);
                     $Confirm_Password = password_hash($Confirm_Password, PASSWORD_DEFAULT);
-                    $insertquerry = "INSERT INTO `signup` (`user_name`, `Email_id`, `Password`, `Confirm_Password`, `mobile_number`, `Location`) VALUES ('$user_name', '$Email_id', '$Password', '$Confirm_Password', '$mobile_number', '$Location')";
+                    $imagename = $profile_image['name'];
+                    $imagepath = $profile_image['tmp_name'];
+                    $imageerror = $profile_image['error'];
+                    if ($imageerror == 0) {
+                        $last_image_number = 1;
+                        $files = scandir('../Profile_images/');
+                        foreach ($files as $file) {
+                            if (preg_match('/^img(\d+)\.(jpg|jpeg|png|gif)$/', $file, $matches)) {
+                                $image_number = intval($matches[1]);
+                                if ($image_number >= $last_image_number) {
+                                    $last_image_number = $image_number + 1;
+                                }
+                            }
+                        }
+                        $new_imagename = 'img' . $last_image_number . '.' . pathinfo($imagename, PATHINFO_EXTENSION);
 
-                    // session variables 
+                        $destinationimage = '../Profile_images/' . $new_imagename;
+                        move_uploaded_file($imagepath, $destinationimage);
+                        $insertquerry = "INSERT INTO `signup` (`first_name`, `last_name`, `Email_id`, `dob`, `Password`, `Confirm_Password`, `mobile_number`, `city`, `state`, `profile_image`) VALUES ('$first_name', '$last_name', '$Email_id', '$dob', '$Password', '$Confirm_Password', '$mobile_number', '$city', '$state', '$destinationimage')";
 
-                    $_SESSION['user_name'] = $user_name;
-                    $_SESSION['Email_id'] = $Email_id;
-                    $_SESSION['mobile_number'] = $mobile_number;
-                    $_SESSION['Location'] = $Location;
-
-                    $result = mysqli_query($con, $insertquerry);
-                } else {
+                        $result = mysqli_query($con, $insertquerry);
+                        if ($result) {
+                            // session variables 
+                            $_SESSION['email'] = $Email_id;
                 ?>
+                            <script>
+                                location.replace("Home.php");
+                            </script>
+                        <?php
+                        } else {
+                        ?>
+                            <script>
+                                alert("data not inserted");
+                            </script>
+                        <?php
+                        }
+                    } else {
+                        ?>
+                        <script>
+                            alert("Image not inserted");
+                        </script>
+                    <?php
+                    }
+                } else {
+                    ?>
                     <script>
                         alert("invalid Confirm Password");
-                    </script>
-                <?php
-                }
-
-                if ($result) {
-                ?>
-                    <script>
-                        location.replace("Home.php");
-                    </script>
-                <?php
-                } else {
-                ?>
-                    <script>
-                        alert("data not inserted");
                     </script>
     <?php
                 }

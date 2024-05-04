@@ -1,45 +1,46 @@
-<?php
+<?php 
 session_start();
-if (isset($_SESSION['email'])) {
-    include 'Database_connection.php';
+
+if(isset($_SESSION['email'])){
     $email = $_SESSION['email'];
-} else {
-?>
+    include 'Database_connection.php';
+}else{
+    ?>
     <script>
         location.replace("Login.php");
     </script>
-<?php
+    <?php
     die();
 }
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS Link-->
-    <link rel="stylesheet" href="../CSS/Poster.css">
+    <link rel="stylesheet" href="../CSS/Joinee_page.css">
 
-    <!-- Font awesome link -->
+    <!-- font awesome link -->
     <script src="https://kit.fontawesome.com/415069f141.js" crossorigin="anonymous"></script>
+
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- Javascript for html to img -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <title>Milaap</title>
 </head>
 
 <body>
+
     <!-- Navbar code starts here-->
+
     <nav class=" nav-pvt navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="brand navbar-brand" href="Home.php">Milaap</a>
+            <a class="brand navbar-brand" href="../index.php">Milaap</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -65,9 +66,6 @@ if (isset($_SESSION['email'])) {
                         </ul>
                     </li>
                 </ul>
-                <form action="All_missing.php" class="d-flex">
-                    <button class=" button-left btn" type="submit">Get info about missing</button>
-                </form>
                 <form action="PostInfo.php" class="d-flex">
                     <button class="button-right btn" type="submit">Post info about missing</button>
                 </form>
@@ -99,140 +97,146 @@ if (isset($_SESSION['email'])) {
 
     <!-- Navbar code ends here-->
 
-    <!-- Poster section start here  -->
-    <div class="poster">
-        <div class="col">
-            <div class="row missing" id="downloadposter">
-                <div class="col col-lg-12 col-md-12 col-sm-12">
-                    <section class="container">
-                        <?php
-                        $res = mysqli_query($con, "select * from missing_person_data where user_email='$email' ");
-                        if (mysqli_num_rows($res) > 0) {
-                            foreach ($res as $row) {
-                        ?>
-                                <div class="card">
-                                    <div class="logo-details">
-                                        <i class="fab fa-slack"></i>
-                                        <span class="logo_name">Milaap</span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <h1 class="text-center">Missing: <?php echo $row['full_name']; ?></h1>
+    <!-- Have you seen someone section start here  -->
+    <div class="missing">
+        <div class="col col-lg-6 col-md-12 col-sm-12">
+            <section class="container">
+                <?php
+                include 'Database_connection.php';
+                if (isset($_SESSION['Joinee_City'])) {
+                    $src_1 = $_SESSION['Joinee_City'];
+                    $res_1 = mysqli_query($con, "select * from statelist where city_name ='$src_1'");
+                    if (mysqli_num_rows($res_1) > 0) {
+                        $row_1 = mysqli_fetch_array($res_1);
+                        $lat1 = $row_1[2];
+                        $long1 = $row_1[3];
+                        $res_2 = mysqli_query($con, "select * from missing_person_data");
+                        if ($res_2) {
+                            $row_count = mysqli_num_rows($res_2);
+                            for ($i = 0; $i < $row_count; $i++) {
+                                $row = mysqli_fetch_array($res_2);
+                                $full_name = $row['full_name'];
+                                $age = $row['age'];
+                                $body_color = $row['body_color'];
+                                $height = $row['height'];
+                                $build = $row['build'];
+                                $hair_color = $row['hair_color'];
+                                $eye_color = $row['eye_color'];
+                                $profession = $row['profession'];
+                                $missing_city = $row['missing_city'];
+                                $missing_state = $row['missing_state'];
+                                $missing_date = $row['missing_date'];
+                                $image = $row['image'];
+                                $gender = $row['gender'];
+                                $src_2 = $missing_city;
+                                $res_3 = mysqli_query($con, "select * from statelist where city_name ='$src_2'");
+                                if (mysqli_num_rows($res_3) > 0) {
+                                    $row_2 = mysqli_fetch_array($res_3);
+                                    $lat2 = $row_2[2];
+                                    $long2 = $row_2[3];
+                                    // Function to calculate the distance between two sets of coordinates using the Haversine formula
+                                    if (function_exists("haversineDistance") === FALSE) {
+    
+                                    function haversineDistance($lat1, $long1, $lat2, $long2)
+                                    {
+                                        // Radius of the Earth in kilometers
+                                        $earthRadius = 6371;
+
+                                        // Convert latitude and longitude from degrees to radians
+                                        $lat1 = deg2rad($lat1);
+                                        $long1 = deg2rad($long1);
+                                        $lat2 = deg2rad($lat2);
+                                        $long2 = deg2rad($long2);
+                                        // Haversine formula
+                                        $dlat = $lat2 - $lat1;
+                                        $dlong = $long2 - $long1;
+                                        $a = sin($dlat / 2) * sin($dlat / 2) + cos($lat1) * cos($lat2) * sin($dlong / 2) * sin($dlong / 2);
+                                        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+                                        $distance = $earthRadius * $c;
+                                        return $distance;
+                                    }
+                                }
+                                    $distance = haversineDistance($lat1, $long1, $lat2, $long2);
+                                    if ($distance <= '500') {
+                ?>
+                                        <div class="card">
                                             <div class="center">
                                                 <div class="image">
-                                                    <img src="<?php echo $row['image']; ?>" alt="image" />
+                                                    <img src="<?php echo $image; ?>" alt="image" />
                                                 </div>
+                                                <h2><?php echo $full_name; ?></h2>
                                             </div>
-                                        </div>
-                                        <br>
-                                        <div class="col">
+                                            <br>
                                             <div class="row">
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>AGE AT DISAPPEARANCE : <?php echo $row['age']; ?></p>
+                                                    <p>AGE AT DISAPPEARANCE : <?php echo $age; ?></p>
                                                 </div>
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Body Color: <?php echo $row['body_color']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Height: <?php echo $row['height']; ?></p>
-                                                </div>
-                                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Build: <?php echo $row['build']; ?></p>
+                                                    <p>Body Color: <?php echo $body_color; ?></p>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Hair Color: <?php echo $row['hair_color']; ?></p>
+                                                    <p>Height: <?php echo $height; ?></p>
                                                 </div>
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Eye Color: <?php echo $row['eye_color']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Profession: <?php echo $row['profession']; ?></p>
-                                                </div>
-                                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Missing City: <?php echo $row['missing_city']; ?></p>
+                                                    <p>Build: <?php echo $build; ?></p>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Missing State: <?php echo $row['missing_state']; ?></p>
+                                                    <p>Hair Color: <?php echo $hair_color; ?></p>
                                                 </div>
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Missing Date: <?php echo $row['missing_date']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Gender: <?php echo $row['gender']; ?></p>
-                                                </div>
-                                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Something Uniquee: <?php echo $row['uniqueness']; ?></p>
+                                                    <p>Eye Color: <?php echo $eye_color; ?></p>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                                    <p>Dress Color (When last Seen): <?php echo $row['dress_color']; ?></p>
+                                                    <p>Profession: <?php echo $profession; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Missing City: <?php echo $missing_city; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Missing State: <?php echo $missing_state; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Missing Date: <?php echo $missing_date; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Gender: <?php echo $gender; ?></p>
                                                 </div>
                                                 <div class="col col-lg-6 col-md-12 col-sm-12">
 
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                        <?php
+                <?php
+                                    }
+                                } else {
+                                    echo 'Not Working 1';
+                                }
                             }
                         } else {
-                            echo "No Record Available";
+                            echo 'Not Working 3';
                         }
-                        ?>
-                    </section>
-                </div>
-            </div>
-            <div class="row missing">
-                <div class="download">
-                    <button class="button btn" type="Submit" id="downloadpdf">Download</button>
-                </div>
-                <div class="download">
-                    <button class="button btn" type="Submit" onclick="nextPage()">Next Page</button>
-                    <!-- Javascript code for redirect to next page starts here -->
-                    <script>
-                        function nextPage() {
-                            window.location.href = 'Additional_facility.php';
-                        }
-                    </script>
-                    <!-- Javascript code for redirect to next page ends here -->
-                </div>
-            </div>
-            <!-- Javascript to download image starts here -->
-
-            <script>
-                document.getElementById('downloadpdf').addEventListener('click', function() {
-                    html2canvas(document.getElementById('downloadposter'), {
-                        onrendered: function(canvas) {
-                            var imageDataURL = canvas.toDataURL('image/png');
-                            console.log('Image data URL:', imageDataURL);
-
-                            var link = document.createElement('a');
-                            link.href = imageDataURL;
-                            link.download = 'myImage.png';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        }
-                    });
-                });
-            </script>
-
-            <!-- Javascript to download image ends here -->
+                    } else {
+                        echo 'Not Working 4';
+                    }
+                } else {
+                    echo 'Not Working 5';
+                }
+                ?>
+            </section>
         </div>
     </div>
-    <!-- Poster section ends here  -->
+    <!-- Have you seen someone section ends here  -->
+
     <!-- Footer code starts here  -->
 
     <footer>
@@ -298,6 +302,7 @@ if (isset($_SESSION['email'])) {
     </footer>
 
     <!-- footer code ends here  -->
+    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -307,6 +312,7 @@ if (isset($_SESSION['email'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     -->
+
 </body>
 
 </html>

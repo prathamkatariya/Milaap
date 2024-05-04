@@ -1,4 +1,19 @@
-<!doctype html>
+<?php
+session_start();
+
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    include 'Database_connection.php';
+} else {
+?>
+    <script>
+        location.replace("Login.php");
+    </script>
+<?php
+    die();
+}
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,6 +30,9 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Javascript for html to img -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <title>Milaap</title>
 </head>
@@ -54,87 +72,157 @@
                 <form action="PostInfo.php" class="d-flex">
                     <button class="button-right btn" type="submit">Post info about missing</button>
                 </form>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="<?php
+                                    $image_path = "SELECT profile_image FROM signup WHERE Email_id = '$email'";
+                                    $answer = $con->query($image_path);
+                                    if ($answer->num_rows > 0) {
+                                        while ($row = $answer->fetch_assoc()) {
+                                            echo $row["profile_image"];
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>" alt="Profile_Image">
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="Destroy.php">Logout</a></li>
+                        <li><a class="dropdown-item" href="#"></a></li>
+                    </ul>
+                </li>
             </div>
         </div>
     </nav>
 
     <!-- Navbar code ends here-->
 
-    <!-- Have you seen someone section start here  -->
-    <div class="missing">
-        <div class="col col-lg-6 col-md-12 col-sm-12">
-            <section class="container">
-                <?php
-                include 'Database_connection.php';
-                $res = mysqli_query($con, "select * from missing_person_data");
-                if (mysqli_num_rows($res) > 0) {
-                    foreach ($res as $row) {
-                ?>
-                        <div class="card">
-                            <div class="center">
-                                <div class="image">
-                                    <img src="<?php echo $row['image']; ?>" alt="image" />
-                                </div>
-                                <h2><?php echo $row['full_name']; ?></h2>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>AGE AT DISAPPEARANCE : <?php echo $row['age']; ?></p>
-                                </div>
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Body Color: <?php echo $row['body_color']; ?></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Height: <?php echo $row['height']; ?></p>
-                                </div>
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Build: <?php echo $row['build']; ?></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Hair Color: <?php echo $row['hair_color']; ?></p>
-                                </div>
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Eye Color: <?php echo $row['eye_color']; ?></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Profession: <?php echo $row['profession']; ?></p>
-                                </div>
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Missing Location: <?php echo $row['missing_location']; ?></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Living Location: <?php echo $row['living_location']; ?></p>
-                                </div>
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Missing Date: <?php echo $row['missing_date']; ?></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <p>Gender: <?php echo $row['gender']; ?></p>
-                                </div>
-                                <div class="col col-lg-6 col-md-12 col-sm-12">
+    <!-- Get info section start here  -->
+    <div class="poster">
+        <div class="col">
+            <div class="row missing" id="downloadposter">
+                <div class="col col-lg-12 col-md-12 col-sm-12">
+                    <section class="container">
+                        <?php
+                        $id = $_GET['id'];
+                        $res = mysqli_query($con, "select * from missing_person_data where id='$id' ");
+                        if (mysqli_num_rows($res) > 0) {
+                            foreach ($res as $row) {
+                        ?>
+                                <div class="card">
+                                    <div class="logo-details">
+                                        <i class="fab fa-slack"></i>
+                                        <span class="logo_name">Milaap</span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h1 class="text-center">Missing: <?php echo $row['full_name']; ?></h1>
+                                            <div class="center">
+                                                <div class="image">
+                                                    <img src="<?php echo $row['image']; ?>" alt="image" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>AGE AT DISAPPEARANCE : <?php echo $row['age']; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Body Color: <?php echo $row['body_color']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Height: <?php echo $row['height']; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Build: <?php echo $row['build']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Hair Color: <?php echo $row['hair_color']; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Eye Color: <?php echo $row['eye_color']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Profession: <?php echo $row['profession']; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Missing City: <?php echo $row['missing_city']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Missing State: <?php echo $row['missing_state']; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Missing Date: <?php echo $row['missing_date']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Gender: <?php echo $row['gender']; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Something Uniquee: <?php echo $row['uniqueness']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                                    <p>Dress Color (When last Seen): <?php echo $row['dress_color']; ?></p>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-12 col-sm-12">
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                <?php
-                    }
-                }
-                ?>
-            </section>
+                        <?php
+                            }
+                        } else {
+                            echo "No Record Available";
+                        }
+                        ?>
+                    </section>
+                </div>
+            </div>
+            <div class="row missing">
+                <div class="download">
+                    <button class="button btn" type="Submit" id="downloadpdf">Download</button>
+                </div>
+            </div>
+            <!-- Javascript to download image starts here -->
+
+            <script>
+                document.getElementById('downloadpdf').addEventListener('click', function() {
+                    html2canvas(document.getElementById('downloadposter'), {
+                        onrendered: function(canvas) {
+                            var imageDataURL = canvas.toDataURL('image/png');
+                            console.log('Image data URL:', imageDataURL);
+
+                            var link = document.createElement('a');
+                            link.href = imageDataURL;
+                            link.download = 'myImage.png';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }
+                    });
+                });
+            </script>
+
+            <!-- Javascript to download image ends here -->
         </div>
     </div>
-    <!-- Have you seen someone section ends here  -->
+    <!-- Get info section ends here  -->
 
     <!-- Footer code starts here  -->
 
@@ -201,7 +289,6 @@
     </footer>
 
     <!-- footer code ends here  -->
-    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

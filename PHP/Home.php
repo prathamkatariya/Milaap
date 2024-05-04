@@ -1,5 +1,17 @@
 <?php
 session_start();
+
+if (isset($_SESSION['email'])) {
+    include 'Database_connection.php';
+    $email = $_SESSION['email'];
+} else {
+?>
+    <script>
+        location.replace("Login.php");
+    </script>
+<?php
+    die();
+}
 ?>
 
 <!doctype html>
@@ -38,7 +50,7 @@ session_start();
                         <a class="nav-link active" aria-current="page" href="Home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
+                        <a class="nav-link" href="news.php">News</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Contactus.php" tabindex="-1" aria-disabled="true">Contact Us</a>
@@ -54,7 +66,7 @@ session_start();
                         </ul>
                     </li>
                 </ul>
-                <form action="GetInfo.php" class="d-flex">
+                <form action="All_missing.php" class="d-flex">
                     <button class=" button-left btn" type="submit">Get info about missing</button>
                 </form>
                 <form action="PostInfo.php" class="d-flex">
@@ -62,11 +74,21 @@ session_start();
                 </form>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo $_SESSION['user_name']; ?>
+                        <img src="<?php
+                                    $image_path = "SELECT profile_image FROM signup WHERE Email_id = '$email'";
+                                    $answer = $con->query($image_path);
+                                    if ($answer->num_rows > 0) {
+                                        while ($row = $answer->fetch_assoc()) {
+                                            echo $row["profile_image"];
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>" alt="Profile_Image">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">My Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
+                        <li><a class="dropdown-item" href="Destroy.php">Logout</a></li>
                         <li><a class="dropdown-item" href="#"></a></li>
                     </ul>
                 </li>
@@ -80,6 +102,10 @@ session_start();
         <div class="heading">
             <h1>Search For Missing Persons</h1>
             <p>Bringing Loved ones home : Milaap</p>
+            <div class="link">
+                <a href="All_missing.php">View all</a>
+            </div>
+            <p>Or Search the one you Know.</p>
             <form action="#" method="GET">
                 <input class="input" type="text" name="search" required value="<?php if (isset($_GET['search'])) {
                                                                                     echo $_GET['search'];
@@ -93,10 +119,13 @@ session_start();
     <!-- card code starts here -->
     <section class="container">
         <?php
-        include 'Database_connection.php';
         if (isset($_GET['search'])) {
             $filtervalues = $_GET['search'];
-            $query = "SELECT * FROM missing_person_data WHERE CONCAT(full_name,age,body_color,eye_color,height,profession,missing_location,living_location,gender,hair_color,build) LIKE '%$filtervalues%' ";
+            $query = "SELECT * FROM missing_person_data WHERE full_name = '$filtervalues'";
+
+            // Old Search querry Code
+            // $query = "SELECT * FROM missing_person_data WHERE CONCAT(full_name,age,body_color,eye_color,height,profession,missing_city,missing_state,gender,hair_color,build) LIKE '%$filtervalues%' ";
+
             $query_run = mysqli_query($con, $query);
 
             if (mysqli_num_rows($query_run) > 0) {
@@ -111,8 +140,9 @@ session_start();
                         </div>
                         <br>
                         <div class="buttons">
-                            <button class="button">Get Information</button>
-                            <button class="button">Seen Somewhere</button>
+                            <a href="GetInfo.php?id=<?php echo $items['id']; ?>" class="button">Get Information</a>
+                            <a href="Update_Lead.php?id=<?php echo $items['id']; ?>" class="button">Seen Somewhere</a>
+                            <!-- <button class="button">Seen Somewhere</button> -->
                         </div>
                     </div>
                 <?php
@@ -152,7 +182,7 @@ session_start();
                     Join our community and help us bring missing individuals back home. Together, we can make a difference.
                 </p>
                 <div class="link">
-                    <a href="#">Join US</a>
+                    <a href="Community.php">Join US</a>
                 </div>
             </div>
         </div>
@@ -169,7 +199,7 @@ session_start();
                     Be a lifeline to someone in crisis
                 </h1>
                 <div class="link">
-                    <a href="#">Donate</a>
+                    <a href="Donate.php">Donate</a>
                 </div>
             </div>
             <div class="col col-lg-6 col-md-12 col-sm-12">

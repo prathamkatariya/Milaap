@@ -1,5 +1,14 @@
 <?php
 session_start();
+if (isset($_SESSION['email'])) {
+?>
+    <script>
+        location.replace("Home.php");
+    </script>
+<?php
+} else {
+    // die();
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -39,22 +48,16 @@ session_start();
             <!-- Form Code Starts here -->
 
             <form action="#" method="POST">
-                <div class="field">
-                    <input type="text" name="user_name" required>
-                    <label>Username</label>
+                <div class="field first">
+                    <input type="email" name="email" required>
+                    <label>Enter your email</label>
                 </div>
-                <div class="field">
+                <div class="field first">
                     <input type="password" name="Password" required>
-                    <label>Password</label>
+                    <label>Enter your password</label>
                 </div>
-                <!-- <div class="content">
-                    <div class="checkbox">
-                        <input type="checkbox" id="remember-me">
-                        <label for="remember-me">Remember me</label>
-                    </div>
-                </div> -->
                 <div class="field">
-                    <input type="submit" name="Submit" value="Login">
+                    <input type="submit" name="Submit" value="Send OTP">
                 </div>
             </form>
         </div>
@@ -66,37 +69,63 @@ session_start();
     include 'Database_connection.php';
 
     if (isset($_POST['Submit'])) {
-        $user_name = $_POST['user_name'];
+        $email = $_POST['email'];
         $Password = $_POST['Password'];
 
-    $res=mysqli_query($con,"select * from signup where user_name='$user_name'");    
-        if(mysqli_num_rows($res)>0){
+        $res = mysqli_query($con, "SELECT * FROM signup where Email_id ='$email'");
+        if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            $verify = password_verify($Password,$row['Password']);
-            if ($verify==1) {
-                $_SESSION['user_name'] = $user_name;
-                ?>
-                  <script>
-                      location.replace("Home.php");
-                  </script>
-                   <?php
+            $verify = password_verify($Password, $row['Password']);
+            if ($verify == 1) {
+                $_SESSION['email'] = $email;
+                $otp = rand(11111, 99999);
+                mysqli_query($con, "UPDATE signup SET otp='$otp' WHERE Email_id='$email'");
+                $msg = "Your OTP Verification Code is : " . $otp;
+                require_once("class.phpmailer.php");
+                function smtp_mailer($to, $subject, $msg)
+                {
+                    $mail = new PHPMailer(); // create a new object
+                    $mail->IsSMTP(); // enable SMTP
+                    $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+                    $mail->SMTPAuth = true; // authentication enabled
+                    $mail->SMTPSecure = 'tls'; // secure transfer enabled REQUIRED for GMail
+                    $mail->Host = "smtp.gmail.com";
+                    $mail->Port = 587;
+                    $mail->IsHTML(true);
+                    $mail->Username = "theicodeofficial@gmail.com";
+                    $mail->Password = "iuyi srpr rbgu rplu";
+                    $mail->SetFrom("theicodeofficial@gmail.com");
+                    $mail->Subject = $subject;
+                    $mail->Body = $msg;
+                    $mail->AddAddress($to);
+                    if (!$mail->Send()) {
+                        echo "Mailer Error: " . $mail->ErrorInfo;
+                    } else {
+                        echo "Message has been sent";
+                    }
+                }
+                smtp_mailer($email, "OTP-Verification Milaap", $msg);
+    ?>
+                <script>
+                    location.replace("Send_otp.php");
+                </script>
+            <?php
+            } else {
+            ?>
+                <script>
+                    alert('Password incorrect');
+                </script>
+            <?php
             }
-            else {
-                ?>
-                    <script>
-                        alert('Password incorrect');
-                    </script>
-                     <?php
-            }
-        }else{
+        } else {
             ?>
             <script>
-                alert('Invalid username');
+                alert('Invalid Email id');
             </script>
-             <?php
-           }
+    <?php
+        }
     }
-        ?>
+    ?>
     <!-- Php ended -->
 
 

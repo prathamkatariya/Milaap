@@ -1,15 +1,15 @@
-<?php 
+<?php
 session_start();
 
-if(isset($_SESSION['email'])){
+if (isset($_SESSION['email'])) {
     include 'Database_connection.php';
     $email = $_SESSION['email'];
-}else{
-    ?>
+} else {
+?>
     <script>
         location.replace("Login.php");
     </script>
-    <?php
+<?php
     die();
 }
 ?>
@@ -22,8 +22,14 @@ if(isset($_SESSION['email'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="../CSS/swiper-bundle.min.css" />
+
     <!-- CSS Link-->
-    <link rel="stylesheet" href="../CSS/Contactus.css">
+    <link rel="stylesheet" href="../CSS/Donate.css">
+
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
 
     <!-- font awesome link -->
     <script src="https://kit.fontawesome.com/415069f141.js" crossorigin="anonymous"></script>
@@ -38,16 +44,16 @@ if(isset($_SESSION['email'])){
 
     <!-- Navbar code starts here-->
 
-    <nav class="nav-pvt navbar navbar-expand-lg navbar-light bg-light">
+    <nav class=" nav-pvt navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="brand navbar-brand" href="../index.php">Milaap</a>
+            <a class="brand navbar-brand" href="Home.php">Milaap</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="Home.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">News</a>
@@ -98,115 +104,139 @@ if(isset($_SESSION['email'])){
 
     <!-- Navbar code ends here-->
 
-    <!-- contactus section starts here -->
-
-    <div class="container">
-
-        <div class="form">
-            <div class="contact-info">
-                <h3 class="title">Contact us</h3>
-                <p class="text">
-                    We believe that every missing person deserves to be found, and we are committed to working tirelessly towards this goal. Milaap is here to support you every step of the way.
-                </p>
-
-                <div class="info">
-                    <div class="information">
-                        <img src="../Project-image/location.png" class="icon" alt="location icon" />
-                        <p>Rajendra Nagar, Indore, Madhya Pradesh</p>
-                    </div>
-                    <div class="information">
-                        <img src="../Project-image/email.png" class="icon" alt="email icon" />
-                        <p>milaap@gmail.com</p>
-                    </div>
-                    <div class="information">
-                        <img src="../Project-image/phone.png" class="icon" alt="phone icon" />
-                        <p>+919479821716</p>
-                    </div>
-                </div>
-
-                <div class="social-media">
-                    <p>Connect with us :</p>
-                    <div class="social-icons">
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
+    <!-- heading section starts here -->
+    <div class="container" id="blur">
+        <div class="row">
+            <div class="col col-lg-6 col-md-12 col-sm-12">
+                <div class="heading-col">
+                    <a href="#"><img src="../Project-image/Donation Image.jpeg" alt="Image"></a>
                 </div>
             </div>
+            <div class="col heading-content col-lg-6 col-md-12 col-sm-12">
+                <h1>Be a lifeline to someone in crisis</h1>
+                <p>
+                    "Every small contribution brings us one step closer to finding our missing loved one. Please consider donating today and help us reunite a family in need."
+                </p>
+                <button type="submit" class="link" onclick="toggle()">Donate</button>
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="popup">
+        <img src="../Project-image/Donation-QR-Code.png" alt="Donation Image">
+        <button type="button" onclick="toggle()">OK</button>
+    </div>
 
-            <div class="contact-form">
-                <form class="form-right" method="POST" autocomplete="off">
-                    <h3 class="title">Contact us</h3>
-                    <div class="input-container">
-                        <input type="text" name="name" class="input" value="" required />
-                        <label for="">Your Name</label>
-                        <span>Username</span>
+    <!-- heading section ends here -->
+
+    <!-- swiper-1 section starts here -->
+
+    <section class="slider">
+        <h1>Ways your donation can help</h1>
+        <div class="testimonial mySwiper">
+            <div class="testi-content swiper-wrapper">
+                <div class="slide swiper-slide">
+                    <i class="bx bxs-quote-alt-left quote-icon"></i>
+                    <div class="details">
+                        <span class="name">Funding Search and Rescue Efforts</span>
                     </div>
-                    <div class="input-container">
-                        <input type="email" name="email" class="input" value="" required />
-                        <label for="">Email</label>
-                        <span>Email</span>
+                    <p>
+                        Donations provide the financial resources necessary to fund search and rescue operations. This includes mobilizing teams, equipment, and technology needed to conduct thorough searches and investigations.
+                    </p>
+                </div>
+                <div class="slide swiper-slide">
+                    <i class="bx bxs-quote-alt-left quote-icon"></i>
+                    <div class="details">
+                        <span class="name">Awareness Campaigns</span>
                     </div>
-                    <div class="input-container">
-                        <input type="number" name="phone" class="input" value="" required />
-                        <label for="">Phone</label>
-                        <span>Phone</span>
+                    <p>
+                        Donations enable us to run awareness campaigns, which can help locate missing individuals faster. These campaigns might involve distributing flyers, running social media ads, or organizing community events to garner public attention.
+                    </p>
+                </div>
+                <div class="slide swiper-slide">
+                    <i class="bx bxs-quote-alt-left quote-icon"></i>
+                    <div class="details">
+                        <span class="name">Support for Families</span>
                     </div>
-                    <div class="input-container textarea">
-                        <textarea name="message" class="input" value=""></textarea>
-                        <label for="">Message</label>
-                        <span>Message</span>
-                    </div>
-                    <input type="submit" value="Send" name="Send" class="btns" />
+                    <p>
+                        Donations often go towards providing support services for the families of missing persons. This can include counseling, legal assistance, and resources to help them navigate the challenging emotional and legal aspects of a missing loved one.
+                    </p>
+                </div>
+            </div>
+            <div class="swiper-button-next nav-btn"></div>
+            <div class="swiper-button-prev nav-btn"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    <!-- swiper-1 section ends here -->
+
+    <!-- Donation with shopping code starts here -->
+
+    <div class="shopping">
+        <div class="row">
+            <div class="col col-lg-6 col-md-12 col-sm-12">
+                <div class="shop-col">
+                    <a href="#"><img src="../Project-image/Shopping Image.jpeg" alt="Image"></a>
+                </div>
+            </div>
+            <div class="col shop col-lg-6 col-md-12 col-sm-12">
+                <h1>You can also support us by shopping! </h1>
+                <p>
+                    " Your shopping makes a meaningful impact! Every purchace on our e-commerce website support families of missing person through charitable contributions. "
+                </p>
+                <form action="../Milaap Store/store_home.php">
+                    <button type="submit" class="link">Shop</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Contact us Code ended -->
+    <!-- Donation with shopping code ends here -->
 
-    <!-- PHP Starts Here  -->
-    <?php
-    if (isset($_POST['Send'])) {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $message = $_POST['message'];
+    <!-- swiper-2 section starts here -->
+
+    <section class="slider">
+        <h1>Why we need your support?</h1>
+        <div class="testimonial mySwiper">
+            <div class="testi-content swiper-wrapper">
+                <div class="slide swiper-slide">
+                    <i class="bx bxs-quote-alt-left quote-icon"></i>
+                    <div class="details">
+                        <span class="name">39 People</span>
+                    </div>
+                    <p>
+                        39 people are reported missing every hour in India.
+                    </p>
+                </div>
+                <div class="slide swiper-slide">
+                    <i class="bx bxs-quote-alt-left quote-icon"></i>
+                    <div class="details">
+                        <span class="name">50 Percent</span>
+                    </div>
+                    <p>
+                        50% of the missing person in India are untraced.
+                    </p>
+                </div>
+                <div class="slide swiper-slide">
+                    <i class="bx bxs-quote-alt-left quote-icon"></i>
+                    <div class="details">
+                        <span class="name">90 Seconds</span>
+                    </div>
+                    <p>
+                        Every 90 second someone is reportedly missing in India.
+                    </p>
+                </div>
+            </div>
+            <div class="swiper-button-next nav-btn"></div>
+            <div class="swiper-button-prev nav-btn"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    <!-- swiper-2 section ends here -->
 
 
+    <!-- Footer code starts here  -->
 
-        $insertquerry = "INSERT INTO `contactus` (`name`, `email`, `phone`, `message`) VALUES ('$name', '$email', '$phone', '$message')";
-
-        $result = mysqli_query($con, $insertquerry);
-
-        if ($result) {
-    ?>
-            <script>
-                        location.replace("../index.php");
-            </script>
-        <?php
-        } else {
-        ?>
-            <script>
-                alert("data not inserted");
-            </script>
-    <?php
-        }
-    }
-    ?>
-    <!-- php ended -->
-
-    <!-- contactus section ends here -->
-
-     <!-- Footer code starts here  -->
-
-     <footer>
+    <footer>
         <div class="content">
             <div class="top">
                 <div class="logo-details">
@@ -259,7 +289,7 @@ if(isset($_SESSION['email'])){
         </div>
         <div class="bottom-details">
             <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2021 <a href="#">Milaap.</a>All rights reserved</span>
+                <span class="copyright_text">Copyright © 2023 <a href="#">Milaap.</a>All rights reserved</span>
                 <span class="policy_terms">
                     <a href="#">Privacy policy</a>
                     <a href="#">Terms & condition</a>
@@ -270,8 +300,12 @@ if(isset($_SESSION['email'])){
 
     <!-- footer code ends here  -->
 
-    <!-- javascript link -->
-    <script src="../JavaScript/contactus.js"></script>
+    <!-- Popup JavaScript link -->
+    <script src="../JavaScript/popup.js"></script>
+    <!-- Swiper JS -->
+    <script src="../JavaScript/swiper-bundle.min.js"></script>
+    <!-- JavaScript -->
+    <script src="../JavaScript/swiper.js"></script>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

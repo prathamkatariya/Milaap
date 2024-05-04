@@ -1,15 +1,15 @@
-<?php 
+<?php
 session_start();
 
-if(isset($_SESSION['email'])){
+if (isset($_SESSION['email'])) {
     include 'Database_connection.php';
     $email = $_SESSION['email'];
-}else{
-    ?>
+} else {
+?>
     <script>
         location.replace("Login.php");
     </script>
-    <?php
+<?php
     die();
 }
 ?>
@@ -23,7 +23,7 @@ if(isset($_SESSION['email'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS Link-->
-    <link rel="stylesheet" href="../CSS/Contactus.css">
+    <link rel="stylesheet" href="../CSS/news.css">
 
     <!-- font awesome link -->
     <script src="https://kit.fontawesome.com/415069f141.js" crossorigin="anonymous"></script>
@@ -38,19 +38,19 @@ if(isset($_SESSION['email'])){
 
     <!-- Navbar code starts here-->
 
-    <nav class="nav-pvt navbar navbar-expand-lg navbar-light bg-light">
+    <nav class=" nav-pvt navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="brand navbar-brand" href="../index.php">Milaap</a>
+            <a class="brand navbar-brand" href="Home.php">Milaap</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="Home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
+                        <a class="nav-link" href="news.php">News</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Contactus.php" tabindex="-1" aria-disabled="true">Contact Us</a>
@@ -98,115 +98,45 @@ if(isset($_SESSION['email'])){
 
     <!-- Navbar code ends here-->
 
-    <!-- contactus section starts here -->
-
+    <!-- Slider code starts here  -->
     <div class="container">
-
-        <div class="form">
-            <div class="contact-info">
-                <h3 class="title">Contact us</h3>
-                <p class="text">
-                    We believe that every missing person deserves to be found, and we are committed to working tirelessly towards this goal. Milaap is here to support you every step of the way.
-                </p>
-
-                <div class="info">
-                    <div class="information">
-                        <img src="../Project-image/location.png" class="icon" alt="location icon" />
-                        <p>Rajendra Nagar, Indore, Madhya Pradesh</p>
-                    </div>
-                    <div class="information">
-                        <img src="../Project-image/email.png" class="icon" alt="email icon" />
-                        <p>milaap@gmail.com</p>
-                    </div>
-                    <div class="information">
-                        <img src="../Project-image/phone.png" class="icon" alt="phone icon" />
-                        <p>+919479821716</p>
-                    </div>
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <a href=""><img src="../Project-image/Community.jpg" alt="Slide 1"></a>
                 </div>
-
-                <div class="social-media">
-                    <p>Connect with us :</p>
-                    <div class="social-icons">
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
+                <div class="slide">
+                    <a href=""><img src="../Project-image/Donation Image.jpeg" alt="Slide 2"></a>
                 </div>
-            </div>
-
-            <div class="contact-form">
-                <form class="form-right" method="POST" autocomplete="off">
-                    <h3 class="title">Contact us</h3>
-                    <div class="input-container">
-                        <input type="text" name="name" class="input" value="" required />
-                        <label for="">Your Name</label>
-                        <span>Username</span>
-                    </div>
-                    <div class="input-container">
-                        <input type="email" name="email" class="input" value="" required />
-                        <label for="">Email</label>
-                        <span>Email</span>
-                    </div>
-                    <div class="input-container">
-                        <input type="number" name="phone" class="input" value="" required />
-                        <label for="">Phone</label>
-                        <span>Phone</span>
-                    </div>
-                    <div class="input-container textarea">
-                        <textarea name="message" class="input" value=""></textarea>
-                        <label for="">Message</label>
-                        <span>Message</span>
-                    </div>
-                    <input type="submit" value="Send" name="Send" class="btns" />
-                </form>
+                <div class="slide">
+                    <a href=""><img src="../Project-image/lived_experiences.jpg" alt="Slide 3"></a>
+                </div>
             </div>
         </div>
     </div>
+    <!-- Slider code ends here  -->
+    <!-- Javascript code for slider starts here -->
+    <script>
+        const slides = document.querySelector('.slides');
+        const slide = document.querySelectorAll('.slide');
+        const slideWidth = slide[0].clientWidth;
 
-    <!-- Contact us Code ended -->
+        let counter = 0;
 
-    <!-- PHP Starts Here  -->
-    <?php
-    if (isset($_POST['Send'])) {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $message = $_POST['message'];
+        setInterval(() => {
+            slides.style.transform = `translateX(${-slideWidth * counter}px)`;
+            slides.style.transition = 'transform 0.5s ease-in-out';
+            counter++;
 
+            if (counter === slide.length) {
+                counter = 0;
+            }
+        }, 5000);
+    </script>
+    <!-- Javascript code for Slider ends here -->
+    <!-- Footer code starts here  -->
 
-
-        $insertquerry = "INSERT INTO `contactus` (`name`, `email`, `phone`, `message`) VALUES ('$name', '$email', '$phone', '$message')";
-
-        $result = mysqli_query($con, $insertquerry);
-
-        if ($result) {
-    ?>
-            <script>
-                        location.replace("../index.php");
-            </script>
-        <?php
-        } else {
-        ?>
-            <script>
-                alert("data not inserted");
-            </script>
-    <?php
-        }
-    }
-    ?>
-    <!-- php ended -->
-
-    <!-- contactus section ends here -->
-
-     <!-- Footer code starts here  -->
-
-     <footer>
+    <footer>
         <div class="content">
             <div class="top">
                 <div class="logo-details">
@@ -259,7 +189,7 @@ if(isset($_SESSION['email'])){
         </div>
         <div class="bottom-details">
             <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2021 <a href="#">Milaap.</a>All rights reserved</span>
+                <span class="copyright_text">Copyright © 2023 <a href="#">Milaap.</a>All rights reserved</span>
                 <span class="policy_terms">
                     <a href="#">Privacy policy</a>
                     <a href="#">Terms & condition</a>
@@ -269,9 +199,6 @@ if(isset($_SESSION['email'])){
     </footer>
 
     <!-- footer code ends here  -->
-
-    <!-- javascript link -->
-    <script src="../JavaScript/contactus.js"></script>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
