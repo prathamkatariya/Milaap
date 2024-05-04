@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200!important;300!important;400!important;500!important;600!important;700&display=swap");
+/* navbar css starts here */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-pvt {
+  padding-left: 20px !important;
+  padding-right: 50px !important;
+  font-weight: 500 !important;
+}
+nav li {
+  list-style-type: none !important;
+  content: none !important;
+}
+.brand {
+  font-size: 30px !important;
+  color: #007eff !important;
+  padding-right: 20px !important;
+}
+.nav-link {
+  font-size: 18px !important;
+}
+
+/* navbar css ends here */
+
+/* filter section css starts here */
+
+.section-title h3{
+    color: #007eff !important;
+    font-family:'Popins',sans-serif !important;
+}
+
+.shop-nav{
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    background-color: rgb(0, 0, 0) !important;
+}
+
+.shop-nav ul{
+    margin: auto !important;
+    float: none !important;
+    text-align: start !important;
+    color: #fff !important;
+}
+
+.shop-nav ul li{
+    display: inline-block !important;
+    margin: 0 10px !important;
+    font-family: 'Popins',sans-serif !important;
+    cursor: pointer !important;
+    color: #fff !important;
+    font-size: 18px !important;
+}
+.shop-nav ul li span{
+    padding: 8px 16px !important;
+}
+.shop-nav ul li .nav-link{
+    color: #fff !important;
+    font-family: 'Popins',sans-serif !important;
+    font-size: 18px !important;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+/* filter section css ends here */
+
+
+
+/* Products css starts here */
+
+#products {
+    text-align: center !important;
+  }
+  
+  #products .container{
+  display: flex !important;
+  justify-content: space-between !important;
+  padding-top: 20px !important;
+  flex-wrap: wrap !important;
+  }
+  
+  #products .pro {
+    width: 23% !important;
+    max-width: 250px !important;
+    padding: 10px 12px !important;
+    border: 1px solid #cce7d0 !important;
+    border-radius: 25px !important;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02) !important;
+    margin: 15px 0px !important;
+    position: relative !important;
+  }
+  
+  #products .pro :hover {
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06) !important;
+  }
+  
+  #products .pro img {
+    width: 100% !important;
+    border-radius: 20px !important;
+  }
+  
+  #products .pro .des {
+    text-align: start !important;
+    padding: 10px 0px !important;
+  }
+  
+  #products .pro .des span {
+    color: #606063 !important;
+    font-size: 12px !important;
+  }
+  
+  #products .pro .des h5 {
+    padding-top: 7px !important;
+    color: #1a1a1a !important;
+    font-size: 14px !important;
+  }
+  
+  #products .pro .des i {
+    font-size: 12px !important;
+    color: rgba(243, 181, 25);
+  }
+  
+  #products .pro .des h4 {
+    padding-top: 7px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #088178 !important;
+  }
+  
+  #products .pro a {
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    border-radius: 50px !important;
+    background-color: #e8f6ea !important;
+    font-weight: 500 !important;
+    color: #088178 !important;
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 10px !important;
+    cursor: pointer !important;
+  }
+  /* Products css ends here */

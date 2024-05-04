@@ -1,0 +1,10 @@
+<?php
+session_start();
+session_destroy();
+?>
+<script>
+    location.replace("Admin-login.php");
+</script>
+<?php
+die();
+?>

@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200!important;300!important;400!important;500!important;600!important;700&display=swap");
+/* navbar css starts here */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-pvt {
+  padding-left: 20px !important;
+  padding-right: 50px !important;
+  font-weight: 500 !important;
+}
+nav li {
+  list-style-type: none !important;
+  content: none !important;
+}
+.brand {
+  font-size: 30px !important;
+  color: #007eff !important;
+  padding-right: 20px !important;
+}
+.nav-link {
+  font-size: 18px !important;
+}
+
+/* navbar css ends here */
+
+/* Home Section css starts here */
+
+#home {
+  background-image: url(Store-Images/bg.jpeg);
+  width: 100% !important;
+  height: 100vh !important;
+  background-size: cover !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  background-position-y: 50px !important;
+  margin-bottom: 30px !important;
+}
+#home span {
+  color: #007eff !important;
+}
+
+.home_shop {
+  margin-top: 5px !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  border-radius: 30px !important;
+  border: 1px solid !important;
+  border-color: black !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+  background-color: black !important;
+}
+
+.home_shop:hover {
+  background-color: #fff !important;
+  color: black !important;
+}
+
+/* Home Section css ends here */
+
+/* Top-Seller-Shirt css starts here */
+
+#top-seller {
+  text-align: center !important;
+}
+
+#top-seller .container{
+display: flex !important;
+justify-content: space-between !important;
+padding-top: 20px !important;
+flex-wrap: wrap !important;
+}
+
+#top-seller .pro {
+  width: 23% !important;
+  max-width: 250px !important;
+  padding: 10px 12px !important;
+  border: 1px solid #cce7d0 !important;
+  border-radius: 25px !important;
+  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02) !important;
+  margin: 15px 0px !important;
+  position: relative !important;
+}
+
+#top-seller .pro :hover {
+  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+#top-seller .pro img {
+  width: 100% !important;
+  border-radius: 20px !important;
+}
+
+#top-seller .pro .des {
+  text-align: start !important;
+  padding: 10px 0px !important;
+}
+
+#top-seller .pro .des span {
+  color: #606063 !important;
+  font-size: 12px !important;
+}
+
+#top-seller .pro .des h5 {
+  padding-top: 7px !important;
+  color: #1a1a1a !important;
+  font-size: 14px !important;
+}
+
+#top-seller .pro .des i {
+  font-size: 12px !important;
+  color: rgba(243, 181, 25);
+}
+
+#top-seller .pro .des h4 {
+  padding-top: 7px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #088178 !important;
+}
+
+#top-seller .pro a {
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  border-radius: 50px !important;
+  background-color: #e8f6ea !important;
+  font-weight: 500 !important;
+  color: #088178 !important;
+  position: absolute !important;
+  bottom: 20px !important;
+  right: 10px !important;
+  cursor: pointer !important;
+}
+/* Top-Seller-Shirt css ends here */
