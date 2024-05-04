@@ -12,7 +12,9 @@
   padding-right: 50px !important;
   font-weight: 500 !important;
 }
-
+nav li {
+  list-style-type: none !important;
+}
 .brand {
   font-size: 30px !important;
   color: #007eff !important;
@@ -46,6 +48,14 @@
 .button-right:hover {
   background-color: rgb(242, 115, 5) !important;
 }
+.navbar img {
+  width: 60px !important; 
+  height: 60px !important;
+  border-radius: 50% !important; 
+  border: solid 1px black;
+  /* margin-right: 10px;  */
+}
+/* Navbar css ends here */
 
 /* form css starts here   */
 

@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -11,51 +10,17 @@
   padding-left: 20px;
   padding-right: 50px !important;
   font-weight: 500 !important;
+  margin-bottom: 10px !important;
 }
-nav li {
-  list-style-type: none !important;
-}
+
 .brand {
   font-size: 30px !important;
-  color: #007eff !important;
-  padding-right: 20px !important;
+  color: blue !important;
 }
 
-.button-left {
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  margin-right: 20px !important;
-  border-radius: 20px !important;
-  border-color: #007eff !important;
-  color: #007eff !important;
-  font-weight: 500 !important;
+a {
+  text-decoration: none !important;
 }
-
-.button-right {
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  margin-right: 20px !important;
-  border-radius: 20px !important;
-  background-color: rgb(255, 119, 0) !important;
-  font-weight: 500 !important;
-  color: rgb(252, 252, 252) !important;
-}
-
-.button-left:hover {
-  background-color: rgb(217, 228, 239);
-}
-
-.button-right:hover {
-  background-color: rgb(242, 115, 5) !important;
-}
-.navbar img {
-  width: 60px !important; 
-  height: 60px !important;
-  border-radius: 50% !important; 
-  border: solid 1px black;
-  /* margin-right: 10px;  */
-}
-/* Navbar css ends here */
 /* form css starts here   */
 
 .container {
@@ -111,39 +76,6 @@ form .input-box span.details {
 .user-details .input-box input:valid {
   border-color: #9b59b6;
 }
-form .gender-details .gender-title {
-  font-size: 20px;
-  font-weight: 500;
-}
-form .category {
-  display: flex;
-  width: 80%;
-  margin: 14px 0;
-  justify-content: space-between;
-}
-form .category label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-form .category label .dot {
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  margin-right: 10px;
-  background: #d9d9d9;
-  border: 5px solid transparent;
-  transition: all 0.3s ease;
-}
-#dot-1:checked ~ .category label .one,
-#dot-2:checked ~ .category label .two,
-#dot-3:checked ~ .category label .three {
-  background: #9b59b6;
-  border-color: #d9d9d9;
-}
-form input[type="radio"] {
-  display: none;
-}
 form .button {
   height: 45px;
   margin: 35px 0;
@@ -191,4 +123,3 @@ form .button input:hover {
 }
 
 /* form css ends here   */
-

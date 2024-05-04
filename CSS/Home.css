@@ -48,6 +48,13 @@ nav li {
 .button-right:hover {
   background-color: rgb(242, 115, 5) !important;
 }
+.navbar img {
+  width: 60px !important; 
+  height: 60px !important;
+  border-radius: 50% !important; 
+  border: solid 1px black;
+  /* margin-right: 10px;  */
+}
 
 /* navbar css ends here */
 
@@ -93,6 +100,28 @@ nav li {
   font-weight: 100 !important;
   color: #b8e7ec !important;
 }
+.heading .link{
+  margin-top: 30px !important;
+}
+
+.heading .link a{
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  border-radius: 30px !important;
+  background-color: #fff !important;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  color: #007eff !important;
+  text-decoration: none !important;
+}
+
+.heading .link a:hover{
+  background-color: #007eff !important;
+  color: #fff !important;
+  border: 1px solid black !important;
+}
 form .input {
   height: 50px !important;
   width: 80vw !important;
@@ -106,20 +135,21 @@ form .input {
   border: none !important;
 }
 .button {
-  margin-top: 20px;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
   padding-left: 30px !important;
   padding-right: 30px !important;
-  margin-right: 20px !important;
-  border-radius: 20px !important;
-  border-color: #ffffff !important;
+  border-radius: 30px !important;
   color: #007eff !important;
   background-color: #ffffff !important;
   font-weight: 500 !important;
   font-size: 20px !important;
+  text-decoration: none !important;
 }
 .button:hover {
   background-color: #007eff !important;
   color: #ffffff !important;
+  border-color: black !important;
 }
 /* heading section css ends here */
 
@@ -185,6 +215,7 @@ form .input {
   }
   .card h2 {
     margin-top: 25px !important;
+    text-align: center !important;
     color: #333 !important;
     font-size: 22px !important;
     font-weight: 600 !important;
@@ -205,6 +236,7 @@ form .input {
     background-color: #4070f4;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none !important;
   }
   .buttons .button:hover {
     background-color: #0e4bf1;
@@ -282,7 +314,7 @@ form .input {
 /* Charity section css starts here */
 
 .charity {
-  min-height: 100vh !important;
+  min-height: auto !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -339,7 +371,7 @@ form .input {
 
 /* Get in Touch section css starts here */
 .GetInTouch{
-  min-height: 100vh !important;
+  min-height: auto !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;

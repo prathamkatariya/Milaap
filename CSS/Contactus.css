@@ -5,11 +5,13 @@
   padding: 0;
 }
 .nav-pvt {
-  padding-left: 20px;
+  padding-left: 20px !important;
   padding-right: 50px !important;
   font-weight: 500 !important;
 }
-
+nav li {
+  list-style-type: none !important;
+}
 .brand {
   font-size: 30px !important;
   color: #007eff !important;
@@ -45,16 +47,23 @@
 .button-right:hover {
   background-color: rgb(242, 115, 5) !important;
 }
+.navbar img {
+  width: 60px !important; 
+  height: 60px !important;
+  border-radius: 50% !important; 
+  border: solid 1px black;
+  /* margin-right: 10px;  */
+}
 
 /* navbar css ends here */
 
 /* contactus css starts here */
 .container {
   position: relative !important;
-  width: 100% !important;
+  min-width: 100vw !important;
   min-height: 100vh !important;
   padding: 2rem !important;
-  background-color: #fafafa !important;
+  background-color: #fff !important;
   overflow: hidden !important;
   display: flex !important;
   align-items: center !important;
@@ -109,7 +118,7 @@
   left: -13px !important;
 }
 
-form {
+.form-right {
   padding: 2.3rem 2.2rem !important;
   z-index: 10 !important;
   overflow: hidden !important;
@@ -386,7 +395,7 @@ textarea.input {
     display: none !important;
   }
 
-  form,
+  .form-right,
   .contact-info {
     padding: 1.7rem 1.6rem !important;
   }
