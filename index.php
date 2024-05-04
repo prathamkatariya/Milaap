@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user_name'])) {
+?>
+    <script>
+        location.replace("PHP/Home.php");
+    </script>
+<?php
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -34,7 +46,7 @@
                         <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
+                        <a class="nav-link" href="PHP/news.php">News</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="PHP/Contactus.php" tabindex="-1" aria-disabled="true">Contact Us</a>
@@ -75,14 +87,17 @@
     <!-- Have you seen someone section start here  -->
     <div class="missing">
         <div class="row">
-            <div class="col seenSomeone col-lg-6 col-md-12 col-sm-12">
+            <div class="col seenSomeone col-lg-4 col-md-12 col-sm-12">
                 <h1>Have you <br> Seen Someone?</h1>
+                <div class="link">
+                    <a href="PHP/All_missing.php">View all</a>
+                </div>
             </div>
-            <div class="col col-lg-6 col-md-12 col-sm-12">
+            <div class="col col-lg-8 col-md-12 col-sm-12">
                 <section class="container">
                     <?php
                     include 'PHP/Database_connection.php';
-                    $res = mysqli_query($con, "select * from missing_person_data");
+                    $res = mysqli_query($con, "SELECT * FROM missing_person_data ORDER BY id DESC LIMIT 10");
                     if (mysqli_num_rows($res) > 0) {
                         foreach ($res as $row) {
                     ?>
@@ -91,12 +106,12 @@
                                     <div class="image">
                                         <img src="PHP/<?php echo $row['image']; ?>" alt="image" />
                                     </div>
-                                    <h2><?php echo $row['full_name']; ?></h2>
+                                    <h2 style="text-align: center;"><?php echo $row['full_name']; ?></h2>
                                 </div>
                                 <br>
                                 <div class="row">
                                     <div class="col col-lg-6 col-md-12 col-sm-12">
-                                        <p>AGE AT DISAPPEARANCE : <?php echo $row['age']; ?></p>
+                                        <p>AGE AT DISAPPEARANCE: <?php echo $row['age']; ?></p>
                                     </div>
                                     <div class="col col-lg-6 col-md-12 col-sm-12">
                                         <p>Body Color: <?php echo $row['body_color']; ?></p>
@@ -123,12 +138,12 @@
                                         <p>Profession: <?php echo $row['profession']; ?></p>
                                     </div>
                                     <div class="col col-lg-6 col-md-12 col-sm-12">
-                                        <p>Missing Location: <?php echo $row['missing_location']; ?></p>
+                                        <p>Missing City: <?php echo $row['missing_city']; ?></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col col-lg-6 col-md-12 col-sm-12">
-                                        <p>Living Location: <?php echo $row['living_location']; ?></p>
+                                        <p>Missing State: <?php echo $row['missing_state']; ?></p>
                                     </div>
                                     <div class="col col-lg-6 col-md-12 col-sm-12">
                                         <p>Missing Date: <?php echo $row['missing_date']; ?></p>
@@ -136,7 +151,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col col-lg-6 col-md-12 col-sm-12">
-                                        <p>Gender: <?php echo $row['gender']; ?></p>
+                                        <p>Something Uniquee: <?php echo $row['uniqueness']; ?></p>
+                                    </div>
+                                    <div class="col col-lg-6 col-md-12 col-sm-12">
+                                    <p>Gender: <?php echo $row['gender']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-lg-6 col-md-12 col-sm-12">
+                                        <p>Dress Color (When last Seen): <?php echo $row['dress_color']; ?></p>
                                     </div>
                                     <div class="col col-lg-6 col-md-12 col-sm-12">
 
@@ -175,7 +198,7 @@
                     Join our community and help us bring missing individuals back home. Together, we can make a difference.
                 </p>
                 <div class="link">
-                    <a href="#">Join US</a>
+                    <a href="PHP/Community.php">Join US</a>
                 </div>
             </div>
         </div>
@@ -192,7 +215,7 @@
                     Be a lifeline to someone in crisis
                 </h1>
                 <div class="link">
-                    <a href="#">Donate</a>
+                    <a href="PHP/Donate.php">Donate</a>
                 </div>
             </div>
             <div class="col col-lg-6 col-md-12 col-sm-12">

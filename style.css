@@ -5,7 +5,7 @@
   padding: 0;
 }
 .nav-pvt {
-  padding-left: 20px;
+  padding-left: 20px !important;
   padding-right: 50px !important;
   font-weight: 500 !important;
 }
@@ -51,9 +51,9 @@
 /* heading section css starts here */
 .header {
   display: block !important;
-  margin: auto !important;
+  margin: 0px !important;
   height: 100vh !important;
-  width: 100vw !important;
+  width: 100% !important;
   background-image: linear-gradient(#073a5ab6, #06135f9d),
     url(Project-image/bg.jpg) !important;
   background-position: center !important;
@@ -143,7 +143,30 @@
 .seenSomeone h1 {
   font-size: 70px !important;
 }
+.seenSomeone .link{
+  margin-top: 30px !important;
+}
+
+.seenSomeone .link a{
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  border-radius: 30px !important;
+  background-color: rgb(0, 0, 0) !important;
+  font-weight: 500 !important;
+  font-size: 30px !important;
+  color: rgb(252, 252, 252) !important;
+  text-decoration: none !important;
+}
+
+.seenSomeone .link a:hover{
+  background-color: #ffffff !important;
+  color: black !important;
+  border: 1px solid black !important;
+}
 .container {
+  /* margin-left: 40px !important; */
   display: flex !important;
   gap: 12px !important;
   max-width: 100vw !important;
@@ -212,7 +235,8 @@
   background: #e3f2fd !important;
   padding-left: 50px !important;
   padding-right: 50px !important;
-  padding-top: 20px;
+  padding-bottom: 20px !important;
+  padding-top: 20px !important;
 }
 
 .about {
@@ -273,7 +297,7 @@
 /* Charity section css starts here */
 
 .charity {
-  min-height: 100vh !important;
+  min-height: auto !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -303,6 +327,8 @@
 .donate-col img {
   width: 100% !important;
   display: block !important;
+  padding-top: 20px !important;
+  padding-right: 20px !important;
 }
 .donate .link{
   margin-top: 30px !important;
@@ -330,7 +356,7 @@
 
 /* Get in Touch section css starts here */
 .GetInTouch{
-  min-height: 100vh !important;
+  min-height: auto !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
